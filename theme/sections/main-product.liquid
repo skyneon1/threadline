@@ -1,0 +1,36 @@
+{% assign current = product.selected_or_first_available_variant %}
+<section class="container section product-page">
+  <div class="product-gallery">
+    {% for media in product.media %}
+      {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw' }}
+    {% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder' }}{% endfor %}
+  </div>
+  <div class="product-info">
+    <h1>{{ product.title }}</h1>
+    <p class="price" data-price>{{ current.price | money }}{% if current.compare_at_price > current.price %} <s>{{ current.compare_at_price | money }}</s>{% endif %}</p>
+    {% form 'product', product, data-product-form: '' %}
+      {% unless product.has_only_default_variant %}
+        {% for option in product.options_with_values %}
+          <fieldset class="option">
+            <legend>{{ option.name }}</legend>
+            {% for value in option.values %}
+              <label class="swatch"><input type="radio" name="option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %} data-option><span>{{ value }}</span></label>
+            {% endfor %}
+          </fieldset>
+        {% endfor %}
+      {% endunless %}
+      <input type="hidden" name="id" value="{{ current.id }}" data-variant-id>
+      <label class="qty">Quantity <input type="number" name="quantity" value="1" min="1"></label>
+      <button type="submit" class="btn btn-full" data-add {% unless current.available %}disabled{% endunless %}>
+        {% if current.available %}Add to bag{% else %}Sold out{% endif %}
+      </button>
+      {{ form | payment_button }}
+    {% endform %}
+    <div class="description">{{ product.description }}</div>
+    <details><summary>Shipping & returns</summary><p>{{ section.settings.shipping_text }}</p></details>
+  </div>
+  <script type="application/json" data-variants>{{ product.variants | json }}</script>
+</section>
+{% schema %}
+{"name":"Product","settings":[{"type":"textarea","id":"shipping_text","label":"Shipping text","default":"Free shipping over $75. Free returns within 30 days."}]}
+{% endschema %}

@@ -1,0 +1,25 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h3>{{ shop.name }}</h3>
+      <p>{{ section.settings.about }}</p>
+    </div>
+    <div>
+      <h3>Shop</h3>
+      <ul>{% for link in section.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>
+    </div>
+    <div>
+      <h3>Newsletter</h3>
+      {% form 'customer', class: 'newsletter' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" placeholder="Email address" required aria-label="Email">
+        <button type="submit" class="btn">Subscribe</button>
+        {% if form.posted_successfully? %}<p>Thanks for subscribing!</p>{% endif %}
+      {% endform %}
+    </div>
+  </div>
+  <div class="container copyright">© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ powered_by_link }}</div>
+</footer>
+{% schema %}
+{"name":"Footer","settings":[{"type":"textarea","id":"about","label":"About text","default":"Everyday clothing made to last. Thoughtfully designed, responsibly sourced."},{"type":"link_list","id":"menu","label":"Menu","default":"footer"}]}
+{% endschema %}

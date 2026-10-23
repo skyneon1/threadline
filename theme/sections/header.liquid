@@ -1,0 +1,23 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false" data-menu-toggle>☰</button>
+    <a href="{{ routes.root_url }}" class="logo">
+      {% if section.settings.logo %}{{ section.settings.logo | image_url: width: 300 | image_tag: alt: shop.name, height: 32 }}{% else %}{{ shop.name }}{% endif %}
+    </a>
+    <nav class="main-nav" data-menu>
+      <ul>
+        {% for link in section.settings.menu.links %}
+          <li><a href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <div class="header-icons">
+      <a href="{{ routes.search_url }}" aria-label="Search">Search</a>
+      {% if shop.customer_accounts_enabled %}<a href="{{ routes.account_url }}">Account</a>{% endif %}
+      <a href="{{ routes.cart_url }}" class="cart-link">Bag (<span data-cart-count>{{ cart.item_count }}</span>)</a>
+    </div>
+  </div>
+</header>
+{% schema %}
+{"name":"Header","settings":[{"type":"image_picker","id":"logo","label":"Logo"},{"type":"link_list","id":"menu","label":"Menu","default":"main-menu"}]}
+{% endschema %}

@@ -1,0 +1,10 @@
+[
+  {"name":"theme_info","theme_name":"Threadline","theme_version":"1.0.0","theme_author":"Ishan","theme_documentation_url":"https://shopify.dev/docs/storefronts/themes","theme_support_url":"https://help.shopify.com"},
+  {"name":"Colors","settings":[
+    {"type":"color","id":"color_background","label":"Background","default":"#faf8f5"},
+    {"type":"color","id":"color_text","label":"Text","default":"#1c1c1c"},
+    {"type":"color","id":"color_accent","label":"Accent","default":"#b5523b"}]},
+  {"name":"Typography","settings":[
+    {"type":"font_picker","id":"font_heading","label":"Headings","default":"playfair_display_n4"},
+    {"type":"font_picker","id":"font_body","label":"Body","default":"work_sans_n4"}]}
+]

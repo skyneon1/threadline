@@ -1,0 +1,11 @@
+<section class="container section">
+  <h1>Collections</h1>
+  <div class="category-grid">
+    {% for c in collections %}{% unless c.handle == 'all' %}
+      <a class="category-card" href="{{ c.url }}">{% if c.featured_image %}{{ c.featured_image | image_url: width: 600 | image_tag: loading: 'lazy' }}{% else %}{{ 'collection-1' | placeholder_svg_tag: 'placeholder' }}{% endif %}<span>{{ c.title }}</span></a>
+    {% endunless %}{% endfor %}
+  </div>
+</section>
+{% schema %}
+{"name":"Collections list","settings":[]}
+{% endschema %}
