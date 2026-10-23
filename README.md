@@ -1,3 +1,5 @@
+Live preview : https://threadline-sooty.vercel.app/
+
 # Threadline
 
 A clothing store website — static HTML/CSS/JS (no build step).
